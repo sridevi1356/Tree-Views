@@ -1,0 +1,35 @@
+class Node:
+    def __init__(self,data):
+        self.lc=None
+        self.rc=None
+        self.data=data
+        self.hd=0
+def vertical_order(root):
+    hd_map={}
+    q=[root]
+    while q:
+        node=q.pop(0)
+        if node.hd not in hd_map:
+            hd_map[node.hd]=[]
+        hd_map[node.hd].append(node.data)
+        if node.lc:
+            node.lc.hd=node.hd-1
+            q.append(node.lc)
+        if node.rc:
+            node.rc.hd=node.hd+1
+            q.append(node.rc)
+    print("\n vertical order:")
+    for hd in sorted(hd_map):
+        print(hd,":",hd_map[hd])
+      
+
+root=Node(1)
+root.lc=Node(2)
+root.rc=Node(3)
+root.lc.lc=Node(4)
+root.lc.rc=Node(5)
+root.rc.lc=Node(6)
+root.rc.rc=Node(7)
+root.lc.rc.lc=Node(8)
+root.rc.lc.rc=Node(9)
+vertical_order(root)
